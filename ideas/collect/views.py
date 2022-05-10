@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from .models import Collect
 
 def index(request):
-    collect = Collect.objects.order_by('-created_at')
+    collect = Collect.objects.all()
     context = {
         'collect': collect,
         'title': 'Список идей'
