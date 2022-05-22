@@ -11,7 +11,7 @@
 
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/">Идеи</a>
+    <a class="navbar-brand" href="{% url 'home' %}">Идеи</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -19,8 +19,8 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item"><a class="nav-link" href="/">Главная</a></li>
-            <li class="nav-item"><a class="nav-link" href="/">Добавить идею</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Главная</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Добавить идею</a></li>
         </ul>
     </div>
 </nav>
@@ -30,7 +30,7 @@
         <div class="col-md-3">
             <div class="list-group">
                 {% for item in categories %}
-                <a href="/category/{{ item.pk }}" class="list-group-item list-group-item-action active" aria-current="true">{{ item.title }}</a>
+                <a href="{% url 'category' item.pk %}"" class="list-group-item list-group-item-action active" aria-current="true">{{ item.title }}</a>
                 {% endfor %}
             </div>
         </div>
@@ -49,7 +49,7 @@
                         {% endif %}
                         <div class="media-body">
                             <h5 class="card-title">{{ item.title }}</h5>
-                            <p class="card-text">{{ item.description|safe|linebreaks }}</p>
+                            <p class="card-text">{{ item.description|safe|linebreaks|truncatewords:50 }}</p>
                             <a href="/" class="btn btn-primary">Read more...</a>
                         </div>
                     </div>
