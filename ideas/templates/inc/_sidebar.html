@@ -1,5 +1,5 @@
 {% load collect_tags %}
-
+{% comment %}
 <div class="list-group">
     {% get_list_categories  as categories %}
     {% for item in categories %}
@@ -8,5 +8,5 @@
 </div>
 
 <br>
-
-{% show_categories arg2='User' arg1='Uo'%}
+{% endcomment %}
+{% show_categories %}
