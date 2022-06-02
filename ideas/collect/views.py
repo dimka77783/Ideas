@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 
 from .models import Collect, Category
+from .forms import CollectForm
 
 def index(request):
     collect = Collect.objects.all()
@@ -20,4 +21,9 @@ def view_collect(request, collect_id):
     collect_item = get_object_or_404(Collect, pk=collect_id)
     return render(request, 'collect/view_collect.html', {"collect_item": collect_item})
 
-
+def add_collect(request):
+    if request.method == 'POST':
+        pass
+    else:
+        form = CollectForm()
+    return render(request, 'collect/add_collect.html', {'form': form})
