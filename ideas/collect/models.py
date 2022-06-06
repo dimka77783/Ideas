@@ -10,7 +10,7 @@ class Collect(models.Model):
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата обновления')
     photo = models.ImageField(upload_to='photos/%Y/%m/%d/', verbose_name='Фото', blank=True)
     is_published = models.BooleanField(default=True, verbose_name='Опубликовано')
-    category = models.ForeignKey('Category', on_delete=models.PROTECT, null=True, verbose_name='Наименование категории эффекта')
+    category = models.ForeignKey('Category', on_delete=models.PROTECT, verbose_name='Наименование категории эффекта')
 
     def get_absolute_url(self):
         return reverse('view_collect', kwargs={"collect_id": self.pk})

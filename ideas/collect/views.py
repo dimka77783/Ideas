@@ -26,7 +26,8 @@ def add_collect(request):
         form = CollectForm(request.POST)
         if form.is_valid():
             #  print(form.cleaned_data)
-            collect = Collect.objects.create(**form.cleaned_data)
+            # collect = Collect.objects.create(**form.cleaned_data)
+            collect = form.save()
             return redirect(collect)
     else:
         form = CollectForm()
