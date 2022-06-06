@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 
 from .models import Collect, Category
 from .forms import CollectForm
@@ -23,7 +23,11 @@ def view_collect(request, collect_id):
 
 def add_collect(request):
     if request.method == 'POST':
-        pass
+        form = CollectForm(request.POST)
+        if form.is_valid():
+            #  print(form.cleaned_data)
+            collect = Collect.objects.create(**form.cleaned_data)
+            return redirect(collect)
     else:
         form = CollectForm()
     return render(request, 'collect/add_collect.html', {'form': form})
