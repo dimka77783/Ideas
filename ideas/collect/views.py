@@ -1,7 +1,25 @@
 from django.shortcuts import render, get_object_or_404, redirect
-
+from django.views.generic import ListView
 from .models import Collect, Category
 from .forms import CollectForm
+
+class HomeCollect(ListView):
+    model = Collect
+    template_name = 'collect/home_collect_list.html'
+    context_object_name = 'collect'
+    extra_context = {'title':'Главная'}
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Главная страница'
+        return context
+
+    def get_queryset(self):
+        return Collect.objects.filter(is_published=True)
+
+
+
+
 
 def index(request):
     collect = Collect.objects.all()
