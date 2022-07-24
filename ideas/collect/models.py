@@ -13,7 +13,7 @@ class Collect(models.Model):
     category = models.ForeignKey('Category', on_delete=models.PROTECT, verbose_name='Наименование категории эффекта')
 
     def get_absolute_url(self):
-        return reverse('view_collect', kwargs={"collect_id": self.pk})
+        return reverse('view_collect', kwargs={"pk": self.pk})
 
     def __str__(self):
         return self.title
