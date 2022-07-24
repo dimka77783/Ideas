@@ -14,22 +14,19 @@
         Категория: <a href="{{ collect_item.category.get_absolute_url }}">{{ collect_item.category }}</a>
     </div>
     <div class="card-body">
-        <div class="media">
             {% if item.photo %}
-            <img src="{{ collect_item.photo.url }}" alt="" width="350" class="mr-3">
+            <img src="{{ collect_item.photo.url }}" alt="" width="350" class="float-left mr-3">
             {% else %}
-            <img src="https://picsum.photos/id/1060/350/235/?blur=2" alt="" class="mr-3">
+            <img src="https://picsum.photos/id/1060/350/235/?blur=2" alt="" class="float-left mr-3">
             {% endif %}
-            <div class="media-body">
-                <h5 class="card-title">{{ collect_item.title }}</h5>
-                <a>Описание текущей ситуации (недостатки)</a>
-                <p class="card-text">{{ collect_item.description|safe|linebreaks}}</p>
-                <a>Предложение по улучшению</a>
-                <p class="card-text">{{ collect_item.offer|safe|linebreaks}}</p>
-                <a>Ожидаемый результат</a>
-                <p class="card-text">{{ collect_item.result|safe|linebreaks}}</p>
-            </div>
-        </div>
+            <h5 class="card-title">{{ collect_item.title }}</h5>
+            <a>Описание текущей ситуации (недостатки)</a>
+            <p class="card-text">{{ collect_item.description|safe|linebreaks}}</p>
+            <a>Предложение по улучшению</a>
+            <p class="card-text">{{ collect_item.offer|safe|linebreaks}}</p>
+            <a>Ожидаемый результат</a>
+            <p class="card-text">{{ collect_item.result|safe|linebreaks}}</p>
+
     </div>
     <div class="card-footer text-muted">
         {{ collect_item.created_at|date:"Y-m-d H:i:s" }}
