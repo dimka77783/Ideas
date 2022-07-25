@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import ListView, DeleteView
+from django.views.generic import ListView, DeleteView,CreateView
 from .models import Collect, Category
 from .forms import CollectForm
+from django.urls import reverse_lazy
 
 class HomeCollect(ListView):
     model = Collect
@@ -38,7 +39,9 @@ class ViewCollect(DeleteView):
     #pk_url_kwarg = 'news_id'
     #template_name = 'news/collect_confirm_delete.html'
 
-
+class CreateCollect(CreateView):
+    form_class = CollectForm
+    template_name = 'collect/add_collect.html'
 #def index(request):
     #collect = Collect.objects.all()
     #context = {

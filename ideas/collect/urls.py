@@ -8,5 +8,6 @@ urlpatterns = [
     path('category/<int:category_id>/',CollectByCategory.as_view(), name='category'),
     #path('collect/<int:collect_id>/' ,view_collect, name='view_collect'),
     path('collect/<int:pk>/' ,ViewCollect.as_view(), name='view_collect'),
-    path('collect/add-collect/' ,add_collect, name='add_collect'),
+    #path('collect/add-collect/' ,add_collect, name='add_collect'),
+    path('collect/add-collect/' ,CreateCollect.as_view(), name='add_collect'),
 ]
