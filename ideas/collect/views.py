@@ -16,7 +16,7 @@ class HomeCollect(ListView):
         return context
 
     def get_queryset(self):
-        return Collect.objects.filter(is_published=True)
+        return Collect.objects.filter(is_published=True).select_related('category')
 
 
 class CollectByCategory(ListView):
@@ -31,7 +31,7 @@ class CollectByCategory(ListView):
         return context
 
     def get_queryset(self):
-        return Collect.objects.filter(category_id=self.kwargs['category_id'], is_published=True)
+        return Collect.objects.filter(category_id=self.kwargs['category_id'], is_published=True).select_related('category')
 
 class ViewCollect(DeleteView):
     model = Collect
