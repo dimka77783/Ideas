@@ -2,32 +2,38 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DeleteView,CreateView
 from .models import Collect, Category
 from .forms import CollectForm
+from .utils import MyMixin
 from django.urls import reverse_lazy
+from django.core.paginator import Paginator
 
-class HomeCollect(ListView):
+class HomeCollect(MyMixin, ListView):
     model = Collect
     template_name = 'collect/home_collect_list.html'
     context_object_name = 'collect'
     extra_context = {'title':'Главная'}
+    mixin_prop = 'hello world'
+    paginate_by = 2
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Главная страница'
+        context['title'] = self.get_upper('Главная страница')
+        context['mixin_prop'] = self.get_prop()
         return context
 
     def get_queryset(self):
         return Collect.objects.filter(is_published=True).select_related('category')
 
 
-class CollectByCategory(ListView):
+class CollectByCategory(MyMixin, ListView):
     model = Collect
     template_name = 'news/home_news_list.html'
     context_object_name = 'collect'
     allow_empty = False
+    paginate_by = 2
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(** kwargs)
-        context['title'] = Category.objects.get(pk=self.kwargs['category_id'])
+        context['title'] = self.get_upper(Category.objects.get(pk=self.kwargs['category_id']))
         return context
 
     def get_queryset(self):
