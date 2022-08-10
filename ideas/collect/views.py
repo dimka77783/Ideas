@@ -1,10 +1,29 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import ListView, DeleteView,CreateView
-from .models import Collect, Category
-from .forms import CollectForm
-from .utils import MyMixin
+from django.views.generic import ListView, DetailView, CreateView
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
+from .models import Collect, Category
+from .forms import CollectForm, UserRegisterForm
+from .utils import MyMixin
+from django.contrib import messages
+
+def register(request):
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Вы успешно зарегистрировались')
+            return redirect('login')
+        else:
+            messages.error(request, 'Ошибка регистрации')
+    else:
+        form = UserRegisterForm()
+    return render(request, 'collect/register.html', {"form": form})
+
+
+def login(request):
+    return render(request, 'collect/login.html')
 
 class HomeCollect(MyMixin, ListView):
     model = Collect
@@ -39,7 +58,7 @@ class CollectByCategory(MyMixin, ListView):
     def get_queryset(self):
         return Collect.objects.filter(category_id=self.kwargs['category_id'], is_published=True).select_related('category')
 
-class ViewCollect(DeleteView):
+class ViewCollect(DetailView):
     model = Collect
     context_object_name = 'collect_item'
     #pk_url_kwarg = 'news_id'
