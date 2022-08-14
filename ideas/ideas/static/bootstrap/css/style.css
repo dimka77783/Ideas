@@ -1,7 +1,24 @@
 body{
     background-color: #ccc;
 }
-
 .errorlist{
     color: red;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #000000;
+    border-color: #0d6efd;
+}
+
+.btn {
+    display: inline-block;
+    font-weight: 300;
+    line-height: 1.2;
+}
+.navbar-text {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-right: 0rem;
+    padding-left: 46rem;
 }
