@@ -3,7 +3,8 @@ from .views import *
 
 urlpatterns = [
     path('register/', register, name='register'),
-    path('login/', login, name='login'),
+    path('user_login/', user_login, name='login'),
+    path('logout/', user_logout, name='logout'),
     #path('', index, name='home'),
     path('',HomeCollect.as_view(),name='home'),
     #path('category/<int:category_id>/',get_category, name='category'),

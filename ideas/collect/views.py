@@ -4,9 +4,10 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from .models import Collect, Category
-from .forms import CollectForm, UserRegisterForm
+from .forms import CollectForm, UserRegisterForm, UserLoginForm
 from .utils import MyMixin
 from django.contrib import messages
+from django.contrib.auth import login, logout
 
 def register(request):
     if request.method == 'POST':
@@ -22,8 +23,21 @@ def register(request):
     return render(request, 'collect/register.html', {"form": form})
 
 
-def login(request):
-    return render(request, 'collect/login.html')
+def user_logout(request):
+    logout(request)
+    return redirect('login')
+
+def user_login(request):
+    if request.method == 'POST':
+        form = UserLoginForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('home')
+    else:
+        form = UserLoginForm()
+
+    return render(request, 'collect/login.html', {'form': form})
 
 class HomeCollect(MyMixin, ListView):
     model = Collect
