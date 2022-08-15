@@ -4,10 +4,11 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from .models import Collect, Category
-from .forms import CollectForm, UserRegisterForm, UserLoginForm
+from .forms import CollectForm, UserRegisterForm, UserLoginForm, ContactForm
 from .utils import MyMixin
 from django.contrib import messages
 from django.contrib.auth import login, logout
+from django.core.mail import send_mail
 
 def register(request):
     if request.method == 'POST':
@@ -38,6 +39,22 @@ def user_login(request):
         form = UserLoginForm()
 
     return render(request, 'collect/login.html', {'form': form})
+
+def test(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            mail = send_mail(form.cleaned_data['subject'], form.cleaned_data['content'], 'dimka77783@mail.ru', ['dimka77783@mail.ru','dimkad617@gmail.com'], fail_silently=True)
+            if mail:
+                messages.success(request, 'Письмо отправлено')
+                return redirect('test')
+            else:
+                messages.error(request, 'Ошибка отправки')
+        else:
+            messages.error(request, 'Ошибка регистрации')
+    else:
+        form = ContactForm()
+    return render(request, 'collect/test.html', {"form": form})
 
 class HomeCollect(MyMixin, ListView):
     model = Collect

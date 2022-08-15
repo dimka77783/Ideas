@@ -5,6 +5,7 @@ urlpatterns = [
     path('register/', register, name='register'),
     path('user_login/', user_login, name='login'),
     path('logout/', user_logout, name='logout'),
+    path('test/', test, name='test'),
     #path('', index, name='home'),
     path('',HomeCollect.as_view(),name='home'),
     #path('category/<int:category_id>/',get_category, name='category'),
