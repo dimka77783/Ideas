@@ -40,21 +40,21 @@ def user_login(request):
 
     return render(request, 'collect/login.html', {'form': form})
 
-def test(request):
+def contact(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
             mail = send_mail(form.cleaned_data['subject'], form.cleaned_data['content'], 'dimka77783@mail.ru', ['dimka77783@mail.ru','dimkad617@gmail.com'], fail_silently=True)
             if mail:
                 messages.success(request, 'Письмо отправлено')
-                return redirect('test')
+                return redirect('contact')
             else:
                 messages.error(request, 'Ошибка отправки')
         else:
             messages.error(request, 'Ошибка регистрации')
     else:
         form = ContactForm()
-    return render(request, 'collect/test.html', {"form": form})
+    return render(request, 'collect/contact.html', {"form": form})
 
 class HomeCollect(MyMixin, ListView):
     model = Collect
